@@ -1,4 +1,3 @@
-"use client";
 import React, { useState, useCallback, useMemo } from "react";
 import {
   FileText,
@@ -10,31 +9,7 @@ import {
   XCircle,
 } from "lucide-react";
 
-// --- Global Styles ---
-const GlobalStyles: React.FC = () => (
-  <style>{`
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
-    body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
-    
-    /* Custom Keyframes for the Hero Blob animation */
-    @keyframes blob {
-      0%, 100% {
-        transform: translate(0, 0) scale(1);
-      }
-      33% {
-        transform: translate(30px, -50px) scale(1.1);
-      }
-      66% {
-        transform: translate(-20px, 20px) scale(0.9);
-      }
-    }
-    .animate-blob {
-      animation: blob 7s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-    }
-  `}</style>
-);
-
-// --- Type Definitions and Utilities ---
+// --- Type Definitions and Utilities (kept here for single file component) ---
 
 type FileType = "PDF" | "Image" | "Email" | "Other";
 
@@ -62,91 +37,6 @@ const formatFileSize = (bytes: number): string => {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
 };
 
-// --- Header Component ---
-
-const Header: React.FC = () => (
-  <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-sm shadow-lg border-b border-gray-100">
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-      <div className="flex items-center space-x-3">
-        <Zap className="h-7 w-7 text-indigo-700 transition duration-300 transform hover:rotate-6" />
-        <span className="text-2xl font-extrabold tracking-tighter text-gray-900">
-          AP Automator
-        </span>
-      </div>
-      <nav className="hidden sm:block">
-        <a
-          href="#upload"
-          className="px-4 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-full shadow-md hover:bg-indigo-700 transition duration-300"
-        >
-          Start Uploading
-        </a>
-      </nav>
-    </div>
-  </header>
-);
-
-// --- Hero Section Component ---
-
-const HeroSection: React.FC = () => (
-  <section className="relative overflow-hidden bg-gray-900 pt-20 pb-32">
-    <div className="absolute inset-0 opacity-10 bg-gradient-to-br from-indigo-900 to-black"></div>
-
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
-      {/* Text Content */}
-      <div className="text-left">
-        <p className="text-sm font-bold text-indigo-400 uppercase tracking-widest mb-3">
-          The Future of Finance Automation
-        </p>
-        <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-6xl lg:text-7xl leading-tight">
-          Intelligent Invoice{" "}
-          <span className="text-indigo-400">Processing.</span>
-        </h1>
-        <p className="mt-6 text-xl text-gray-300 max-w-3xl">
-          Upload any document—PDF, image, or email—and instantly initiate the
-          automated accounts payable workflow orchestrated by IBM.
-        </p>
-        <div className="mt-10 flex flex-wrap gap-4">
-          <a
-            href="#upload"
-            className="rounded-xl bg-indigo-600 px-8 py-4 text-lg font-semibold text-white shadow-xl shadow-indigo-500/30 hover:bg-indigo-700 transition duration-300 transform hover:scale-[1.03] focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900"
-          >
-            Upload Invoice Now
-          </a>
-          <a
-            href="#"
-            className="rounded-xl px-8 py-4 text-lg font-semibold text-indigo-200 border border-indigo-500/50 hover:border-indigo-400 hover:text-white transition duration-300"
-          >
-            Learn More
-          </a>
-        </div>
-      </div>
-
-      {/* Feature Icons (Visuals) */}
-      <div className="hidden lg:flex justify-center items-center relative h-96">
-        <div className="absolute w-full h-full rounded-full bg-indigo-500/10 blur-3xl opacity-50 animate-pulse"></div>
-        <div className="grid grid-cols-3 gap-8">
-          <div className="p-6 text-center bg-white/5 backdrop-blur-sm rounded-2xl border border-indigo-700/50 shadow-2xl transition transform hover:scale-105">
-            <FileText className="h-10 w-10 text-indigo-400 mx-auto" />
-            <p className="mt-2 text-sm font-medium text-gray-200">PDF OCR</p>
-          </div>
-          <div className="p-6 text-center bg-white/5 backdrop-blur-sm rounded-2xl border border-indigo-700/50 shadow-2xl transition transform hover:scale-105 delay-100">
-            <Zap className="h-10 w-10 text-indigo-400 mx-auto" />
-            <p className="mt-2 text-sm font-medium text-gray-200">
-              AI Extraction
-            </p>
-          </div>
-          <div className="p-6 text-center bg-white/5 backdrop-blur-sm rounded-2xl border border-indigo-700/50 shadow-2xl transition transform hover:scale-105 delay-200">
-            <Mail className="h-10 w-10 text-indigo-400 mx-auto" />
-            <p className="mt-2 text-sm font-medium text-gray-200">
-              Email Ingestion
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-);
-
 // --- Upload Component ---
 
 const UploadComponent: React.FC = () => {
@@ -171,9 +61,10 @@ const UploadComponent: React.FC = () => {
 
         if (prev.progress >= 99) {
           clearInterval(progressInterval);
-          // Randomly simulate success or error for better demo feedback
-          const isSuccess = Math.random() > 0.1;
+          // Simulate successful processing after a short delay
           setTimeout(() => {
+            // Randomly simulate success or error for better demo feedback
+            const isSuccess = Math.random() > 0.1;
             setStatus((s) =>
               s
                 ? {
@@ -198,7 +89,6 @@ const UploadComponent: React.FC = () => {
       });
     }, 200);
 
-    // Cleanup function for the interval
     return () => clearInterval(progressInterval);
   }, []);
 
@@ -403,33 +293,4 @@ const UploadComponent: React.FC = () => {
   );
 };
 
-// --- Footer Component ---
-
-const Footer: React.FC = () => (
-  <footer className="bg-gray-900 mt-20">
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-      <div className="text-center text-sm text-gray-400">
-        &copy; {new Date().getFullYear()} AP Automator | Hackathon Project.
-        Powered by IBM Orchestrate.
-      </div>
-    </div>
-  </footer>
-);
-
-// --- Main App Component (Renamed to App for clarity) ---
-
-const App: React.FC = () => {
-  return (
-    <div className="min-h-screen bg-white font-sans">
-      <GlobalStyles />
-      <Header />
-      <main>
-        <HeroSection />
-        <UploadComponent />
-      </main>
-      <Footer />
-    </div>
-  );
-};
-
-export default App;
+export default UploadComponent;

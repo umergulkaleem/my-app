@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useCallback, useMemo } from "react";
 import {
   FileText,
@@ -9,6 +10,7 @@ import {
   Loader2,
   XCircle,
 } from "lucide-react";
+import Chat from "../components/ChatOrchestrationComponent";
 
 // --- Global Styles ---
 const GlobalStyles: React.FC = () => (
@@ -426,6 +428,7 @@ const App: React.FC = () => {
       <main>
         <HeroSection />
         <UploadComponent />
+        <Chat />
       </main>
       <Footer />
     </div>

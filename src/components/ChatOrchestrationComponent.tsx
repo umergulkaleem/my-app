@@ -104,7 +104,7 @@ const Chat: React.FC = () => {
           <div ref={chatEndRef} />
         </div>
 
-        <div className="border-t bg-white p-4">
+        <div className="border-t text-black bg-gray p-4">
           <div className="flex gap-3">
             <input
               type="text"

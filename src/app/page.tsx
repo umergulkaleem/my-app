@@ -11,8 +11,7 @@ import {
   XCircle,
 } from "lucide-react";
 import Chat from "../components/ChatOrchestrationComponent";
-import WatsonChat from "@/components/WatsonChat";
-import WatsonChatAsk from "@/components/WatsonChatAsk";
+
 import WatsonDualChat from "@/components/WatsonChat";
 
 // --- Global Styles ---
